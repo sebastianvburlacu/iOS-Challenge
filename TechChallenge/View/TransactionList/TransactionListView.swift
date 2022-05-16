@@ -27,13 +27,10 @@ struct TransactionListView: View {
     }
     
     private func filterTransactions(transactions: [TransactionModel]) -> [TransactionModel] {
-        var filteredTransactions = transactions
-        if (selectedCategory != TransactionModel.Category.all) {
-                filteredTransactions = transactions.filter {transaction in
-                    transaction.category == selectedCategory
-            }
+        guard selectedCategory != TransactionModel.Category.all else {return transactions}
+        return transactions.filter {transaction in
+            transaction.category == selectedCategory
         }
-        return filteredTransactions
     }
 }
 
