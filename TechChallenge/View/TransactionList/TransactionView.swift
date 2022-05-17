@@ -7,11 +7,14 @@
 
 import SwiftUI
 
+fileprivate typealias Category = TransactionModel.Category
+
 struct TransactionView: View {
     let transaction: TransactionModel
     @Binding var totalSpent: Double
     @State private var pinImageName: String = "pin.fill"
     @State private var pinnedTransaction = true
+    @ObservedObject var categoriesTotalSpend: CategoriesModel
     
     var body: some View {
         VStack {
@@ -26,8 +29,10 @@ struct TransactionView: View {
                     transaction.ignoreAmount.toggle()
                     if (pinnedTransaction) {
                         totalSpent += transaction.amount
+                        categoriesTotalSpend.increaseCategorySpend(category: transaction.category, value: transaction.amount)
                     } else {
                         totalSpent -= transaction.amount
+                        categoriesTotalSpend.decreaseCategorySpend(category: transaction.category, value: transaction.amount)
                     }
                 }) {
                     Image(systemName: pinImageName)
@@ -73,8 +78,8 @@ struct TransactionView: View {
 struct TransactionView_Previews: PreviewProvider {
     static var previews: some View {
         VStack {
-            TransactionView(transaction: ModelData.sampleTransactions[0], totalSpent: .constant(10.10))
-            TransactionView(transaction: ModelData.sampleTransactions[1], totalSpent: .constant(10.10))
+            TransactionView(transaction: ModelData.sampleTransactions[0], totalSpent: .constant(10.10), categoriesTotalSpend: CategoriesModel())
+            TransactionView(transaction: ModelData.sampleTransactions[1], totalSpent: .constant(10.10), categoriesTotalSpend: CategoriesModel())
         }
         .padding()
         .previewLayout(.sizeThatFits)
