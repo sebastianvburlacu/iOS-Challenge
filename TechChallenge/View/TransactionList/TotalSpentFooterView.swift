@@ -9,7 +9,7 @@ import SwiftUI
 
 struct TotalSpentFooterView: View {
     let selectedCategory: TransactionModel.Category
-    let totalSpent: Double
+    let categorySpend: Double
     
     var body: some View {
         VStack {
@@ -22,7 +22,7 @@ struct TotalSpentFooterView: View {
                 Text("Total spent:")
                     .secondary()
                 Spacer()
-                Text("$\(totalSpent.formatted())")
+                Text("$\(categorySpend.formatted())")
                     .fontWeight(.bold)
                     .secondary()
             }
@@ -39,7 +39,7 @@ struct TotalSpentFooterView: View {
 
 struct TotalSpentFooterView_Previews: PreviewProvider {
     static var previews: some View {
-        TotalSpentFooterView(selectedCategory: TransactionModel.Category.all, totalSpent: 20.0)
+        TotalSpentFooterView(selectedCategory: TransactionModel.Category.all, categorySpend: 20.0)
             .previewLayout(.sizeThatFits)
     }
 }

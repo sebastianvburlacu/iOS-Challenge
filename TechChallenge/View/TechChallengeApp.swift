@@ -22,7 +22,7 @@ struct TechChallengeApp: App {
                 }
                 
                 NavigationView {
-                    InsightsView()
+                    InsightsView(categoriesTotalSpend: categoriesTotalSpend)
                 }
                 .tabItem {
                     Label("Insights", systemImage: "chart.pie.fill")

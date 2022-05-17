@@ -15,7 +15,13 @@ class CategoriesModel: ObservableObject {
     @Published var shopping: Double = 0.0
     @Published var travel: Double = 0.0
     
+    let transactions: [TransactionModel] = ModelData.sampleTransactions
+    
     typealias Category = TransactionModel.Category
+    
+    init() {
+        computeSpendPerCategory()
+    }
     
     func increaseCategorySpend(category: Category, value: Double) -> Void {
         switch category {
@@ -67,6 +73,12 @@ class CategoriesModel: ObservableObject {
                 return shopping
             case .travel:
                 return travel
+        }
+    }
+    
+    private func computeSpendPerCategory() -> Void {
+        transactions.forEach { transaction in
+            increaseCategorySpend(category: transaction.category, value: transaction.amount)
         }
     }
 }

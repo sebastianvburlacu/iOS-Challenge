@@ -10,7 +10,6 @@ import SwiftUI
 struct TransactionListView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
     @State private var selectedCategory = TransactionModel.Category.all
-    @State private var totalSpent: Double = 0.0
     @ObservedObject var categoriesTotalSpend: CategoriesModel
     
     var body: some View {
@@ -18,23 +17,16 @@ struct TransactionListView: View {
             CategoriesHeaderView(selectedCategory: $selectedCategory)
             List {
                 ForEach(filterTransactions(transactions: transactions)) { transaction in
-                    TransactionView(transaction: transaction, totalSpent: $totalSpent,
-                                    categoriesTotalSpend: categoriesTotalSpend)
+                    TransactionView(transaction: transaction,
+                                categoriesTotalSpend: categoriesTotalSpend)
                 }
-            }
-            .onAppear {
-//                computeTotalSpent()
-                computeSpendPerCategory()
-            }
-            .onChange(of: selectedCategory) {selectedCategory in
-                totalSpent = categoriesTotalSpend.getCategoryValue(category: selectedCategory)
             }
             .animation(.easeIn)
             .listStyle(PlainListStyle())
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Transactions")
             
-            TotalSpentFooterView(selectedCategory: selectedCategory, totalSpent: totalSpent)
+            TotalSpentFooterView(selectedCategory: selectedCategory, categorySpend: categoriesTotalSpend.getCategoryValue(category: selectedCategory))
         }
     }
     
@@ -43,23 +35,6 @@ struct TransactionListView: View {
         return transactions.filter {transaction in
             transaction.category == selectedCategory
         }
-    }
-    
-    private func computeTotalSpent() -> Void {
-        totalSpent = 0
-        let filteredTransactions = filterTransactions(transactions: transactions)
-        filteredTransactions.forEach {transaction in
-            if (!transaction.ignoreAmount) {
-                totalSpent += transaction.amount
-            }
-        }
-    }
-    
-    private func computeSpendPerCategory() -> Void {
-        transactions.forEach { transaction in
-            categoriesTotalSpend.increaseCategorySpend(category: transaction.category, value: transaction.amount)
-        }
-        totalSpent = categoriesTotalSpend.all
     }
 }
 
