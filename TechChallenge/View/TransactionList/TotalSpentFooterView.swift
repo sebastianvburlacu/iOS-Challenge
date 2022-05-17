@@ -22,7 +22,7 @@ struct TotalSpentFooterView: View {
                 Text("Total spent:")
                     .secondary()
                 Spacer()
-                Text("$20")
+                Text("$\(totalSpent.formatted())")
                     .fontWeight(.bold)
                     .secondary()
             }

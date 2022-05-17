@@ -20,9 +20,12 @@ struct TransactionListView: View {
                     TransactionView(transaction: transaction)
                 }
             }
-//            .onChange(of: selectedCategory) {newVal in
-//                computeTotalSpent()
-//            }
+            .onAppear {
+                computeTotalSpent()
+            }
+            .onChange(of: selectedCategory) {newVal in
+                computeTotalSpent()
+            }
             .animation(.easeIn)
             .listStyle(PlainListStyle())
             .navigationBarTitleDisplayMode(.inline)
@@ -41,7 +44,8 @@ struct TransactionListView: View {
     
     private func computeTotalSpent() -> Void {
         totalSpent = 0
-        transactions.forEach {transaction in
+        let filteredTransactions = filterTransactions(transactions: transactions)
+        filteredTransactions.forEach {transaction in
             totalSpent += transaction.amount
         }
     }
