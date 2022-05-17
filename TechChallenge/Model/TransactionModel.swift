@@ -9,7 +9,7 @@ import Foundation
 
 // MARK: - TransactionModel
 
-struct TransactionModel {
+class TransactionModel: ObservableObject {
     enum Category: String, CaseIterable {
         case all
         case food
@@ -41,6 +41,18 @@ struct TransactionModel {
     let date: Date
     let accountName: String
     let provider: Provider?
+    
+    @Published var ignoreAmount: Bool = false
+
+    init(id: Int = 1, name: String = "Movie Night", category: Category = .entertainment, amount: Double = 90.15, date: Date = Date(), accountName: String = "Credit Card", provider: Provider = .timeWarner) {
+        self.id = id
+        self.name = name
+        self.category = category
+        self.amount = amount
+        self.date = date
+        self.accountName = accountName
+        self.provider = provider
+    }
 }
 
 extension TransactionModel: Identifiable {}

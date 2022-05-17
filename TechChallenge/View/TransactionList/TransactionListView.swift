@@ -17,13 +17,13 @@ struct TransactionListView: View {
             CategoriesHeaderView(selectedCategory: $selectedCategory)
             List {
                 ForEach(filterTransactions(transactions: transactions)) { transaction in
-                    TransactionView(transaction: transaction)
+                    TransactionView(transaction: transaction, totalSpent: $totalSpent)
                 }
             }
             .onAppear {
                 computeTotalSpent()
             }
-            .onChange(of: selectedCategory) {newVal in
+            .onChange(of: selectedCategory) {selectedCategory in
                 computeTotalSpent()
             }
             .animation(.easeIn)
@@ -46,7 +46,9 @@ struct TransactionListView: View {
         totalSpent = 0
         let filteredTransactions = filterTransactions(transactions: transactions)
         filteredTransactions.forEach {transaction in
-            totalSpent += transaction.amount
+            if (!transaction.ignoreAmount) {
+                totalSpent += transaction.amount
+            }
         }
     }
 }
