@@ -10,6 +10,7 @@ import SwiftUI
 struct TransactionListView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
     @State private var selectedCategory = TransactionModel.Category.all
+    @State private var totalSpent: Double = 0.0
     
     var body: some View {
         VStack {
@@ -19,10 +20,15 @@ struct TransactionListView: View {
                     TransactionView(transaction: transaction)
                 }
             }
+//            .onChange(of: selectedCategory) {newVal in
+//                computeTotalSpent()
+//            }
             .animation(.easeIn)
             .listStyle(PlainListStyle())
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Transactions")
+            
+            TotalSpentFooterView(selectedCategory: selectedCategory, totalSpent: totalSpent)
         }
     }
     
@@ -30,6 +36,13 @@ struct TransactionListView: View {
         guard selectedCategory != TransactionModel.Category.all else {return transactions}
         return transactions.filter {transaction in
             transaction.category == selectedCategory
+        }
+    }
+    
+    private func computeTotalSpent() -> Void {
+        totalSpent = 0
+        transactions.forEach {transaction in
+            totalSpent += transaction.amount
         }
     }
 }
