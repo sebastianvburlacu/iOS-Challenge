@@ -18,7 +18,7 @@ struct CategoriesHeaderView: View {
                         selectedCategory = category
                     }, label: {
                         Text(category.id)
-                            .font(.title3).fontWeight(.bold)
+                            .font(.title2).fontWeight(.bold)
                             .padding(.horizontal)
                             .padding(.vertical, 5)
                             .background(category.color)
@@ -26,7 +26,7 @@ struct CategoriesHeaderView: View {
                     })
                 }
             }
-            .padding(8)
+            .padding()
         }
         .background(Color.accentColor.opacity(0.8))
         .foregroundColor(.white)

@@ -9,12 +9,12 @@ import SwiftUI
 
 struct InsightsView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
-    @ObservedObject var categoriesTotalSpend: CategoriesModel
+    @ObservedObject var categoriesExpenseStore: CategoriesExpenseStore
     let nrCategories: Int = TransactionModel.Category.allCases.count
     
     var body: some View {
         List {
-            RingView(transactions: transactions, categoriesTotalSpend: categoriesTotalSpend)
+            RingView(transactions: transactions, categoriesExpenseStore: categoriesExpenseStore)
                 .scaledToFit()
             
             ForEach(TransactionModel.Category.allCases[1..<nrCategories]) { category in
@@ -23,7 +23,7 @@ struct InsightsView: View {
                         .font(.headline)
                         .foregroundColor(category.color)
                     Spacer()
-                    Text("$\(categoriesTotalSpend.getCategoryValue(category: category).formatted())")
+                    Text("$\(categoriesExpenseStore.getCategoryValue(category: category).formatted())")
                         .bold()
                         .secondary()
                 }
@@ -37,7 +37,7 @@ struct InsightsView: View {
 #if DEBUG
 struct InsightsView_Previews: PreviewProvider {
     static var previews: some View {
-        InsightsView(categoriesTotalSpend: CategoriesModel())
+        InsightsView(categoriesExpenseStore: CategoriesExpenseStore())
             .previewLayout(.sizeThatFits)
     }
 }

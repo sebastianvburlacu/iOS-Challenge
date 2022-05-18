@@ -27,7 +27,7 @@
 		3CE226C726B2E41E00B3D085 /* InsightsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3CE226C626B2E41E00B3D085 /* InsightsView.swift */; };
 		C77B430A2832ED9100061B49 /* CategoriesHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B43092832ED9100061B49 /* CategoriesHeaderView.swift */; };
 		C77B430C2833A5E100061B49 /* TotalSpentFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B430B2833A5E100061B49 /* TotalSpentFooterView.swift */; };
-		C77B430E283414AB00061B49 /* CategoriesModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B430D283414AB00061B49 /* CategoriesModel.swift */; };
+		C77B430E283414AB00061B49 /* CategoriesExpenseStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = C77B430D283414AB00061B49 /* CategoriesExpenseStore.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -65,7 +65,7 @@
 		3CE226C626B2E41E00B3D085 /* InsightsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = InsightsView.swift; sourceTree = "<group>"; };
 		C77B43092832ED9100061B49 /* CategoriesHeaderView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesHeaderView.swift; sourceTree = "<group>"; };
 		C77B430B2833A5E100061B49 /* TotalSpentFooterView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TotalSpentFooterView.swift; sourceTree = "<group>"; };
-		C77B430D283414AB00061B49 /* CategoriesModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesModel.swift; sourceTree = "<group>"; };
+		C77B430D283414AB00061B49 /* CategoriesExpenseStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CategoriesExpenseStore.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,7 +163,7 @@
 				3CE226B026B03DC600B3D085 /* ModelData.swift */,
 				3CE226AE26B03CBA00B3D085 /* TransactionModel.swift */,
 				3C3FCAAC26C57A7D0092AB11 /* TransactionModel+UI.swift */,
-				C77B430D283414AB00061B49 /* CategoriesModel.swift */,
+				C77B430D283414AB00061B49 /* CategoriesExpenseStore.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -319,7 +319,7 @@
 				C77B430A2832ED9100061B49 /* CategoriesHeaderView.swift in Sources */,
 				3CE2268426B007D200B3D085 /* TechChallengeApp.swift in Sources */,
 				C77B430C2833A5E100061B49 /* TotalSpentFooterView.swift in Sources */,
-				C77B430E283414AB00061B49 /* CategoriesModel.swift in Sources */,
+				C77B430E283414AB00061B49 /* CategoriesExpenseStore.swift in Sources */,
 				3C296ED126B404A5006DF667 /* Path.swift in Sources */,
 				3CE226B926B0548C00B3D085 /* TransactionView.swift in Sources */,
 			);

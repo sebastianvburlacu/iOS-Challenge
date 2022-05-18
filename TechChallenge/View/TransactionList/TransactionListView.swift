@@ -10,15 +10,15 @@ import SwiftUI
 struct TransactionListView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
     @State private var selectedCategory = TransactionModel.Category.all
-    @ObservedObject var categoriesTotalSpend: CategoriesModel
+    @ObservedObject var categoriesExpenseStore: CategoriesExpenseStore
     
     var body: some View {
         VStack {
             CategoriesHeaderView(selectedCategory: $selectedCategory)
             List {
-                ForEach(filterTransactions(transactions: transactions)) { transaction in
+                ForEach(filterTransactions(transactions: transactions, byCategory: selectedCategory)) { transaction in
                     TransactionView(transaction: transaction,
-                                categoriesTotalSpend: categoriesTotalSpend)
+                                categoriesExpenseStore: categoriesExpenseStore)
                 }
             }
             .animation(.easeIn)
@@ -26,14 +26,14 @@ struct TransactionListView: View {
             .navigationBarTitleDisplayMode(.inline)
             .navigationTitle("Transactions")
             
-            TotalSpentFooterView(selectedCategory: selectedCategory, categorySpend: categoriesTotalSpend.getCategoryValue(category: selectedCategory))
+            TotalSpentFooterView(selectedCategory: selectedCategory, categorySpend: categoriesExpenseStore.getCategoryValue(category: selectedCategory))
         }
     }
     
-    private func filterTransactions(transactions: [TransactionModel]) -> [TransactionModel] {
-        guard selectedCategory != TransactionModel.Category.all else {return transactions}
+    func filterTransactions(transactions: [TransactionModel], byCategory: TransactionModel.Category) -> [TransactionModel] {
+        guard byCategory != TransactionModel.Category.all else {return transactions}
         return transactions.filter {transaction in
-            transaction.category == selectedCategory
+            transaction.category == byCategory
         }
     }
 }
@@ -41,7 +41,7 @@ struct TransactionListView: View {
 #if DEBUG
 struct TransactionListView_Previews: PreviewProvider {
     static var previews: some View {
-        TransactionListView(categoriesTotalSpend: CategoriesModel())
+        TransactionListView(categoriesExpenseStore: CategoriesExpenseStore())
     }
 }
 #endif

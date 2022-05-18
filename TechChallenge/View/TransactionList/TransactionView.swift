@@ -13,7 +13,7 @@ struct TransactionView: View {
     let transaction: TransactionModel
     @State private var pinImageName: String = "pin.fill"
     @State private var pinnedTransaction = true
-    @ObservedObject var categoriesTotalSpend: CategoriesModel
+    @ObservedObject var categoriesExpenseStore: CategoriesExpenseStore
     
     var body: some View {
         VStack {
@@ -27,9 +27,9 @@ struct TransactionView: View {
                     pinnedTransaction.toggle()
                     transaction.ignoreAmount.toggle()
                     if (pinnedTransaction) {
-                        categoriesTotalSpend.increaseCategorySpend(category: transaction.category, value: transaction.amount)
+                        categoriesExpenseStore.increaseCategorySpend(category: transaction.category, value: transaction.amount)
                     } else {
-                        categoriesTotalSpend.decreaseCategorySpend(category: transaction.category, value: transaction.amount)
+                        categoriesExpenseStore.decreaseCategorySpend(category: transaction.category, value: transaction.amount)
                     }
                 }) {
                     Image(systemName: pinImageName)
@@ -73,10 +73,11 @@ struct TransactionView: View {
 
 #if DEBUG
 struct TransactionView_Previews: PreviewProvider {
+    private static var categoriesExpenseStore = CategoriesExpenseStore()
     static var previews: some View {
         VStack {
-            TransactionView(transaction: ModelData.sampleTransactions[0], categoriesTotalSpend: CategoriesModel())
-            TransactionView(transaction: ModelData.sampleTransactions[1], categoriesTotalSpend: CategoriesModel())
+            TransactionView(transaction: ModelData.sampleTransactions[0], categoriesExpenseStore: categoriesExpenseStore)
+            TransactionView(transaction: ModelData.sampleTransactions[1], categoriesExpenseStore: categoriesExpenseStore)
         }
         .padding()
         .previewLayout(.sizeThatFits)

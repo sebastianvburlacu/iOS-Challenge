@@ -11,21 +11,17 @@ fileprivate typealias Category = TransactionModel.Category
 
 struct RingView: View {
     let transactions: [TransactionModel]
-    @ObservedObject var categoriesTotalSpend: CategoriesModel
+    @ObservedObject var categoriesExpenseStore: CategoriesExpenseStore
     let categories = TransactionModel.Category.allCases.suffix(from: 1)
     
     private func ratio(for categoryIndex: Int) -> Double {
-        // TODO: calculate ratio for each category according to cummulative expense
-
-        let categorySpend = categoriesTotalSpend.getCategoryValue(category:Category[categoryIndex]!)
-        let totalExpense = categoriesTotalSpend.getCategoryValue(category: Category.all)
+        let categorySpend = categoriesExpenseStore.getCategoryValue(category:Category[categoryIndex]!)
+        let totalExpense = categoriesExpenseStore.getCategoryValue(category: Category.all)
 
         return categorySpend/totalExpense
     }
     
     private func offset(for categoryIndex: Int) -> Double {
-        // TODO: calculate offset for each category according to cummulative expense
-        
         var offset = 0.0
         for index in 1..<categoryIndex {
             offset += ratio(for: index)
@@ -142,7 +138,7 @@ struct RingView_Previews: PreviewProvider {
             sampleRing
                 .scaledToFit()
             
-            RingView(transactions: ModelData.sampleTransactions, categoriesTotalSpend: CategoriesModel())
+            RingView(transactions: ModelData.sampleTransactions, categoriesExpenseStore: CategoriesExpenseStore())
                 .scaledToFit()
         }
         .padding()

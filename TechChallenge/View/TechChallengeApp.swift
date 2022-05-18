@@ -9,20 +9,20 @@ import SwiftUI
 
 @main
 struct TechChallengeApp: App {
-    @StateObject var categoriesTotalSpend = CategoriesModel()
+    @StateObject var categoriesExpenseStore = CategoriesExpenseStore()
     
     var body: some Scene {
         WindowGroup {
             TabView {
                 NavigationView {
-                    TransactionListView(categoriesTotalSpend: categoriesTotalSpend)
+                    TransactionListView(categoriesExpenseStore: categoriesExpenseStore)
                 }
                 .tabItem {
                     Label("Transactions", systemImage: "list.bullet")
                 }
                 
                 NavigationView {
-                    InsightsView(categoriesTotalSpend: categoriesTotalSpend)
+                    InsightsView(categoriesExpenseStore: categoriesExpenseStore)
                 }
                 .tabItem {
                     Label("Insights", systemImage: "chart.pie.fill")

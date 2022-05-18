@@ -7,7 +7,7 @@
 
 import Foundation
 
-class CategoriesModel: ObservableObject {
+class CategoriesExpenseStore: ObservableObject {
     @Published var all: Double = 0.0
     @Published var food: Double = 0.0
     @Published var health: Double = 0.0
