@@ -10,13 +10,14 @@ import SwiftUI
 struct InsightsView: View {
     let transactions: [TransactionModel] = ModelData.sampleTransactions
     @ObservedObject var categoriesTotalSpend: CategoriesModel
+    let nrCategories: Int = TransactionModel.Category.allCases.count
     
     var body: some View {
         List {
-            RingView(transactions: transactions)
+            RingView(transactions: transactions, categoriesTotalSpend: categoriesTotalSpend)
                 .scaledToFit()
             
-            ForEach(TransactionModel.Category.allCases) { category in
+            ForEach(TransactionModel.Category.allCases[1..<nrCategories]) { category in
                 HStack {
                     Text(category.rawValue)
                         .font(.headline)
