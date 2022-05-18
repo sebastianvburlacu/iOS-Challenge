@@ -12,7 +12,7 @@ extension Path {
         var path = Path()
         path.addArc(
             center: CGPoint(x: rect.midX, y: rect.midY),
-            radius: CGFloat(150.0),
+            radius: CGFloat(140.0),
             startAngle: .init(offset: offset, ratio: 0),
             endAngle: .init(offset: offset, ratio: ratio),
             clockwise: false
